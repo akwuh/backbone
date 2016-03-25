@@ -1523,6 +1523,10 @@
       return this;
     },
 
+    redirect: function(fragment, options) {
+      return this.navigate(fragment, _.extend(options, {trigger: true}));
+    },
+
     // Bind all defined routes to `Backbone.history`. We have to reverse the
     // order of the routes here to support behavior where the most general
     // routes can be defined at the bottom of the route map.
