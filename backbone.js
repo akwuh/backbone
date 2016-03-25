@@ -1436,7 +1436,7 @@
     options.error = function(xhr, textStatus, errorThrown) {
       options.textStatus = textStatus;
       options.errorThrown = errorThrown;
-      if (error) error.call(options.context, xhr, textStatus, errorThrown);
+      if (error) error.call(options.context, xhr.responseJSON, textStatus, errorThrown);
     };
 
     // Make the request, allowing the user to override any Ajax options.
