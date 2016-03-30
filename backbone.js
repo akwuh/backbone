@@ -1440,9 +1440,30 @@
     };
 
     // Make the request, allowing the user to override any Ajax options.
-    var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
-    model.trigger('request', model, xhr, options);
-    return xhr;
+    return new Promise(function(resolve, reject) {
+        var error = options.error;
+        var success = options.success;
+        options.error = function(xhr, textStatus, errorThrown) {
+          if (error) error.call(options.context, xhr, textStatus, errorThrown);
+          reject({
+            model: model, 
+            collection: model.collection || model,
+            response: xhr.responseJSON,
+            options: options
+          });
+        };
+        options.success = function(response) {
+          if (success) success.call(options.context, response);
+          resolve({
+            model: model, 
+            collection: model.collection || model,
+            response: response,
+            options: options
+          });
+        };
+        var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
+        model.trigger('request', model, xhr, options);
+    });
   };
 
   // Map from CRUD to HTTP for our default `Backbone.sync` implementation.
