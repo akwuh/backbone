@@ -1545,7 +1545,7 @@
     },
 
     redirect: function(fragment, options) {
-      return this.navigate(fragment, _.extend(options, {trigger: true}));
+      return this.navigate(fragment, _.extend(options || {}, {trigger: true}));
     },
 
     // Bind all defined routes to `Backbone.history`. We have to reverse the
