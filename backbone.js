@@ -16,7 +16,7 @@
   if (typeof define === 'function' && define.amd) {
     define(['underscore', 'jquery', 'exports'], function(_, $, exports) {
       // Export global even in AMD case in case this script is loaded with
-      // others that may still expect a global Backbone.
+      // others thrat may still expect a global Backbone.
       root.Backbone = factory(root, exports, _, $);
     });
 
@@ -689,8 +689,8 @@
     // that will be called.
     url: function() {
       var base =
-        _.result(this, 'urlRoot') ||
         _.result(this.collection, 'url') ||
+        _.result(this, 'urlRoot') ||
         urlError();
       if (this.isNew()) return base;
       var id = this.get(this.idAttribute);
